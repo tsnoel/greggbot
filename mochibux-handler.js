@@ -42,3 +42,5 @@ exports.checkCommand = async (msg, client) => {
         msg.channel.send(db.getPoints(id));
     }
 }
+
+exports.commands = ['mochibux'];

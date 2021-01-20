@@ -24,8 +24,11 @@ client.on('message', async (msg) => {
     }
 
     if (msg.content.startsWith(`${config.prefix}help`)) {
-	let args = msg.content.split(' ');
-	
+	const args = msg.content.split(' ');
+
+	//TODO: make command arrays into objects with applicable text
+	// create this logic block programmatically
+	// I suck at spelling lmao
 	if (args[1] === 'pokemon') {
 	    msg.channel.send('```' +
 	        '\n!pokemon <# of pokemon (1-6)> ' +
@@ -38,27 +41,17 @@ client.on('message', async (msg) => {
 		'\n e.x. "!jackbox8"' +
 		'\n```');
 	} else {
+	    const joiner = `, ${config.prefix}`;
 	    msg.channel.send('bork bork! Try one of these commands. ' +
 	        '\n```' +
-	        '\n!wild, !pokemon, !mochibux, !peepee, !bork, !wisdom, !jackbox' +
+	        `\n${config.prefix}${mochibux.commands.concat(pokemon.commands.concat(bees.commands)).join(joiner)}` +
 	        '\n```');
 	}
     }
 
-    if (msg.content.startsWith(`${config.prefix}wild`)) {
-        try {
-	    pokemon.wild(msg);
-	} catch (e) {
-	    console.log(e);
-	}
-    } else if (msg.content.startsWith(`${config.prefix}pokemon`)) {
-        try {
-	    await pokemon.team(msg);
-	} catch (e) {
-	    console.log(e);
-	}
-    }
-
+    // TODO: add dice roller
+    // TODO: add robo/cartoon voice
+    pokemon.checkCommand(msg);
     mochibux.checkCommand(msg, client);
     bees.checkCommand(msg);
 });

@@ -22,3 +22,5 @@ exports.checkCommand = (msg) => {
         jackbox.jackbox(msg);
     }
 }
+
+exports.commands = ['peepee', 'bork', 'wisdom', 'jackbox'];
