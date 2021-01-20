@@ -52,7 +52,9 @@ client.on('message', async (msg) => {
     // TODO: add dice roller
     // TODO: add robo/cartoon voice
     pokemon.checkCommand(msg);
+
     mochibux.checkCommand(msg, client);
+
     bees.checkCommand(msg);
 });
 

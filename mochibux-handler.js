@@ -37,8 +37,14 @@ exports.checkCommand = async (msg, client) => {
 
         msg.channel.send(`${user.username} now has ${points} MochiBux`);
     } else if (msg.content.startsWith(`${config.prefix}mochibux`)) {
-        const arg = msg.content.trim().split(' ');
-	const id = stripID(arg[1]);
+        const args = msg.content.trim().split(' ');
+
+        if (!args[1]) {
+            msg.channel.send(`${config.greeting} Tag a user after typing !mochibux to see their MochiBux balance`);
+            return;
+        }
+
+	    const id = stripID(args[1]);
         msg.channel.send(db.getPoints(id));
     }
 }
