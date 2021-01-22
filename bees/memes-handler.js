@@ -10,7 +10,7 @@ exports.generate = (msg) => {
 	var toptext=args[1];
 	
 	// get bottom text (if any)
-	if ((args.length > 2) && (args[3].length > 0)) {
+	if (args.length > 2) {
 		var bottomtext=args[3];
 	}
 	else {
