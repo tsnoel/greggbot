@@ -39,6 +39,12 @@ client.on('message', async (msg) => {
 		        '\n!jackbox<number of players>' +
 		        '\n e.x. "!jackbox8"' +
 		        '\n```');
+        } else if (args[1] === 'meme') {
+            msg.channel.send('```' +
+                '\n!meme "<top text>" "<bottom text (optional)>"' +
+                '\n e.x. !meme "top text" "bottom text"' +
+                '\n NOTE: You MUST also supply an attachment image.' +
+                '\n```');
 	    } else {
 	        const joiner = `, ${config.prefix}`;
 

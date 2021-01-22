@@ -7,15 +7,10 @@ exports.generate = (msg) => {
     const args = msg.content.split('"');
 	
 	// get top text
-	var toptext=args[1];
+	var toptext = args[1];
 	
 	// get bottom text (if any)
-	if ((args.length > 2) && (args[3].length > 0)) {
-		var bottomtext=args[3];
-	}
-	else {
-		var bottomtext=" ";
-	}
+    var bottomtext = args[3] || '';
 	
 	// get image
 	var img = new Canvas.Image();
