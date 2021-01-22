@@ -1,5 +1,5 @@
-const jackbox = require('./jackbox-handler.js');
-const memes = require('./memes.js');
+const jackbox = require('./bees/jackbox-handler.js');
+const memes = require('./bees/memes-handler.js');
 const config = require('./config.json');
 
 const borks = [

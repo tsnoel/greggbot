@@ -7,7 +7,7 @@ const db = require('./db-handler.js');
 
 const pokemon = require('./pokemon-handler.js');
 const mochibux = require('./mochibux-handler.js');
-const bees = require('./bees-handler.js');
+const bees = require('./bees-commands.js');
 
 // === ON READY ===
 client.on('ready', () => {
