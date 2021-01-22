@@ -1,4 +1,4 @@
-# greggbot
+# 🤖 greggbot: a very specific discord bot 🤖
 
 ## Requirements
 
