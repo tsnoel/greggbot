@@ -24,33 +24,35 @@ client.on('message', async (msg) => {
     }
 
     if (msg.content.startsWith(`${config.prefix}help`)) {
-	const args = msg.content.split(' ');
+	    const args = msg.content.split(' ');
 
-	//TODO: make command arrays into objects with applicable text
-	// create this logic block programmatically
-	// I suck at spelling lmao
-	if (args[1] === 'pokemon') {
-	    msg.channel.send('```' +
-	        '\n!pokemon <# of pokemon (1-6)> ' +
-		'<max generation (1-8)> <detail level (1-2)>' +
-		'\ndefaults: !pokemon 1 8 2' +
-		'\n```');
-	} else if (args[1] === 'jackbox') {
-	    msg.channel.send('```' +
-		'\n!jackbox<number of players>' +
-		'\n e.x. "!jackbox8"' +
-		'\n```');
-	} else {
-	    const joiner = `, ${config.prefix}`;
-	    msg.channel.send('bork bork! Try one of these commands. ' +
-	        '\n```' +
-	        `\n${config.prefix}${mochibux.commands.concat(pokemon.commands.concat(bees.commands)).join(joiner)}` +
-	        '\n```');
-	}
+	    //TODO: make command arrays into objects with applicable text
+	    // create this logic block programmatically
+	    if (args[1] === 'pokemon') {
+	        msg.channel.send('```' +
+	            '\n!pokemon <# of pokemon (1-6)> ' +
+		        '<max generation (1-8)> <detail level (1-2)>' +
+		        '\ndefaults: !pokemon 1 8 2' +
+		        '\n```');
+	    } else if (args[1] === 'jackbox') {
+	        msg.channel.send('```' +
+		        '\n!jackbox<number of players>' +
+		        '\n e.x. "!jackbox8"' +
+		        '\n```');
+	    } else {
+	        const joiner = `, ${config.prefix}`;
+
+	        msg.channel.send('bork bork! Try one of these commands. ' +
+	            '\n```' +
+	            `\n${config.prefix}${mochibux.commands.concat(pokemon.commands.concat(bees.commands)).join(joiner)}` +
+	            '\n```');
+	    }
     }
 
     // TODO: add dice roller
+
     // TODO: add robo/cartoon voice
+
     pokemon.checkCommand(msg);
 
     mochibux.checkCommand(msg, client);
