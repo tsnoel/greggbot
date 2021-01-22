@@ -1,4 +1,5 @@
 const jackbox = require('./jackbox-handler.js');
+const memes = require('./memes.js');
 const config = require('./config.json');
 
 const borks = [
@@ -20,7 +21,9 @@ exports.checkCommand = (msg) => {
         msg.channel.send(wisdoms[Math.floor(Math.random() * wisdoms.length)]);
     } else if (msg.content.substr(0,8) === '!jackbox') {
         jackbox.jackbox(msg);
+    } else if (msg.content.startsWith(`${config.prefix}meme`)) {
+        memes.generate(msg);
     }
 }
 
-exports.commands = ['peepee', 'bork', 'wisdom', 'jackbox'];
+exports.commands = ['peepee', 'bork', 'wisdom', 'jackbox', 'meme'];

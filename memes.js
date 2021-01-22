@@ -3,15 +3,14 @@ const Discord = require('discord.js');
 
 const config = require('./config.json');
 
-if (msg.content.startsWith(`${config.prefix}meme`)) {
-
+exports.generate = (msg) => {
 	const args = msg.content.split('"');
 	
 	// get top text
 	var toptext=args[1];
 	
 	// get bottom text (if any)
-	if ((args.length > 2) and (args[3].length > 0)) {
+	if ((args.length > 2) && (args[3].length > 0)) {
 		var bottomtext=args[3];
 	}
 	else {

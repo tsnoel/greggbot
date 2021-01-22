@@ -1,4 +1,4 @@
-    const games = [
+const games = [
 	"Bomb Corp. (Party Pack 2)",
 	"Bidiots (Party Pack 2)",
 	"Blather ‘Round (Party Pack 7)",
@@ -30,7 +30,7 @@
 	"You Don’t Know Jack: Full Stream (Party Pack 5)",
 	"Push The Button (Party Pack 6)",
 	"Bracketeering (Party Pack 4)"
-    ];
+];
 
 exports.jackbox = (message) => {
     if (message.content.length > 8) {
