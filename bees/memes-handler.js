@@ -1,7 +1,7 @@
 const Canvas = require('canvas');
 const Discord = require('discord.js');
 
-const config = require('./config.json');
+const config = require('../config.json');
 
 exports.generate = (msg) => {
     const args = msg.content.split('"');
