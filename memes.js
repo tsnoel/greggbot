@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 
 const config = require('./config.json');
 
-exports.generate = (msg) => {
+exports.generate = async (msg) => {
 	const args = msg.content.split('"');
 	
 	// get top text
