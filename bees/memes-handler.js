@@ -34,12 +34,12 @@ exports.generate = (msg) => {
 
 	    ctx.strokeStyle = 'black';
     	ctx.lineWidth = (fontsize / 8);
-    	ctx.strokeText(toptext, (img.height / 2), (img.height / 8));
-    	ctx.strokeText(bottomtext, (img.height / 2), (img.height - (img.height / 16)));
+    	ctx.strokeText(toptext, (img.width / 2), (img.height / 8));
+    	ctx.strokeText(bottomtext, (img.width / 2), (img.height - (img.height / 16)));
 
 	    ctx.fillStyle = "white";
-	    ctx.fillText(toptext, (img.height / 2), (img.height / 8));
-	    ctx.fillText(bottomtext, (img.height / 2), (img.height - (img.height / 16)));
+	    ctx.fillText(toptext, (img.width / 2), (img.height / 8));
+	    ctx.fillText(bottomtext, (img.width / 2), (img.height - (img.height / 16)));
 	
 	    // stole this from the pokemon code
 	    att = new Discord.MessageAttachment(canvas.toBuffer(), `hot_new_meme.png`);
