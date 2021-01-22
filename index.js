@@ -13,7 +13,7 @@ const bees = require('./bees-handler.js');
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
     db.initDB();
-    client.user.setActivity('Stinky Bot Games')
+    client.user.setActivity(config.activity || 'Bot Games')
 });
 
 // === ON MESSAGE ===
