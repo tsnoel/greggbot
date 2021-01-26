@@ -9,10 +9,17 @@ const pokemon = require('./commands/pokemon.js');
 const mochibux = require('./commands/mochibux.js');
 const bees = require('./commands/bees.js');
 
+const commands = {
+    ...mochibux.commands,
+    ...pokemon.commands,
+    ...bees.commands
+};
+
 // === ON READY ===
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
     db.initDB();
+    config.hiddenCommands.forEach((e) => delete commands[e]); 
     client.user.setActivity(config.activity || 'Bot Games',
         { type: [
             'PLAYING',
@@ -26,21 +33,14 @@ client.on('ready', () => {
 
 // === ON MESSAGE ===
 client.on('message', async (msg) => {
-    if (msg.content.substring(0, 1) !== config.prefix &&
-        msg.content.substring(0, 2) !== '<@') {
+    if (!msg.content.startsWith(config.prefix) &&
+        !msg.content.startsWith('<@')) {
         return;
     }
 
     if (msg.content.startsWith(`${config.prefix}help`)) {
 	    const args = msg.content.split(' ');
-        const commands = {
-            ...mochibux.commands,
-            ...pokemon.commands,
-            ...bees.commands
-        };
 
-	    //TODO: make command arrays into objects with applicable text
-	    // create this logic block programmatically
 	    if (Object.keys(commands).includes(args[1])) {
 	        msg.channel.send(commands[args[1]]);
 	    } else {
