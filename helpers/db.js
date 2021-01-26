@@ -1,6 +1,6 @@
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
-const pkmnHandler = require('./pokemon-handler.js')
+const pkmnHandler = require('../handlers/pokemon-handler.js')
  
 const adapter = new FileSync('db.json');
 const db = low(adapter);

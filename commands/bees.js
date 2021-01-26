@@ -1,6 +1,6 @@
-const jackbox = require('./bees/jackbox-handler.js');
-const memes = require('./bees/memes-handler.js');
-const config = require('./config.json');
+const jackbox = require('../handlers/jackbox-handler.js');
+const memes = require('../handlers/memes-handler.js');
+const config = require('../config.json');
 
 const borks = [
     'bork bork', 'bork!', 'bork bork', 'bork bork bork',
@@ -26,4 +26,17 @@ exports.checkCommand = (msg) => {
     }
 }
 
-exports.commands = ['peepee', 'bork', 'wisdom', 'jackbox', 'meme'];
+exports.commands = {
+    peepee: '',
+    bork: '',
+    wisdom: '',
+    jackbox: '```' +
+        '\n!jackbox<number of players>' +
+        '\n e.x. "!jackbox8"' +
+        '\n```',
+    meme: '```' +
+        '\n!meme "<top text>" "<bottom text (optional)>"' +
+        '\n e.x. !meme "top text" "bottom text"' +
+        '\n NOTE: You MUST also supply an attachment image.' +
+        '\n```'
+};

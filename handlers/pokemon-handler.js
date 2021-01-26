@@ -1,13 +1,12 @@
 const Canvas = require('canvas');
 const Discord = require('discord.js');
 
-const config = require('./config.json');
-
 const p = require('pokedex-promise-v2');
 const pokemon = new p();
 
-async function getPokemon(num) {
-    return await pokemon.resource(num);
+getPokemon = async (num) => {
+    const res = await pokemon.resource(num);
+    return res;
 }
 
 async function stitchImages(images, names, types, gens) {
@@ -18,11 +17,12 @@ async function stitchImages(images, names, types, gens) {
         // Since the image takes time to load, you should await it
         // This uses the canvas dimensions to stretch the image onto the entire canvas
         ctx.drawImage(await Canvas.loadImage(images[i]), i * 96, 0);
-	ctx.fillStyle = '#ffffff';
-	ctx.fillText(names[i], i * 96 + ((96- names[i].length * 5) /2), 96);
-	ctx.fillText(names[i], 1 + i * 96 + ((96- names[i].length * 5) /2), 96);
+	    ctx.fillStyle = '#ffffff';
+        // TODO: Make a centered font and use it here. See meme-handler.
+	    ctx.fillText(names[i], i * 96 + ((96- names[i].length * 5) /2), 96);
+	    ctx.fillText(names[i], 1 + i * 96 + ((96- names[i].length * 5) /2), 96);
 
-	ctx.fillText(`(${types[i]})`, (i * 96) + ((96 - types[i].length * 5) / 2), 111);
+	    ctx.fillText(`(${types[i]})`, (i * 96) + ((96 - types[i].length * 5) / 2), 111);
     }
 
     // Use helpful Attachment class structure to process the file for you
@@ -30,7 +30,7 @@ async function stitchImages(images, names, types, gens) {
 	`${images.length}-random-max-gen-${gens}-pokemon.png`)
 }
 
-async function wild(msg) {
+exports.wild = async (msg) => {
     let pknum = Math.floor((Math.random() * 893) + 1);
     let pkmn = await getPokemon([`/api/v2/pokemon/${pknum}`]);
 
@@ -41,7 +41,7 @@ async function wild(msg) {
 	[Math.floor((Math.random() * 6))]}\`\`\``);
 }
 
-async function team(msg) {
+exports.team = async (msg) => {
     const maxpkmn = [151, 251, 386, 493, 649, 721, 809, 898];
     const args = msg.content.split(' ');
 
@@ -58,7 +58,7 @@ async function team(msg) {
 
     for (i = 0; i < num; i++) {
         let pknum = Math.floor((Math.random() * maxpkmn[gens - 1]) + 1);
-	requests.push(`/api/v2/pokemon/${pknum}`);
+	    requests.push(`/api/v2/pokemon/${pknum}`);
     }
 
     let pkmn = await getPokemon(requests);
@@ -77,27 +77,3 @@ async function team(msg) {
 
     msg.channel.send(text, att);
 }
-
-exports.checkCommand = async (msg) => {
-    if (msg.content.startsWith(`${config.prefix}wild`)) {
-        try {
-            await wild(msg);
-        } catch (e) {
-            console.log(e);
-        }
-
-	return true;
-    } else if (msg.content.startsWith(`${config.prefix}pokemon`)) {
-        try {
-            await team(msg);
-        } catch (e) {
-            console.log(e);
-        }
-
-	return true;
-    }
-
-    return false;
-}
-
-exports.commands = ['wild', 'pokemon'];

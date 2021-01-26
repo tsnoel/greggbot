@@ -1,14 +1,16 @@
-const db = require('./db-handler.js');
-const config = require('./config.json');
+const db = require('../helpers/db.js');
+const config = require('../config.json');
 
 function stripID(id) {
-    return id.replace(/[!@<>+-]/g, '');
+    return id.replace(/[!@<>+-\s]/g, '');
 }
 
 exports.checkCommand = async (msg, client) => {
-    if (msg.content.substring(0, 2) === '<@' &&
+    if (msg.content.startsWith('<@') &&
         (msg.content.substring(msg.content.length-3) === '>++' ||
-        msg.content.substring(msg.content.length-3) === '>--')) {
+        msg.content.substring(msg.content.length-3) === '>--') ||
+        (msg.content.substring(msg.content.length-4) === '> ++' ||
+        msg.content.substring(msg.content.length-4) === '> --')) {
         const id = stripID(msg.content);
         let user
           , points;
@@ -49,4 +51,6 @@ exports.checkCommand = async (msg, client) => {
     }
 }
 
-exports.commands = ['mochibux'];
+exports.commands = {
+    mochibux: ''
+};
