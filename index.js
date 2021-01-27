@@ -6,6 +6,7 @@ const config = require('./config.json');
 const db = require('./helpers/db.js');
 
 const tarot = require('./commands/tarot.js');
+const wisdom = require('./commands/wisdom.js');
 const pokemon = require('./commands/pokemon.js');
 const mochibux = require('./commands/mochibux.js');
 const bees = require('./commands/bees.js');
@@ -14,7 +15,8 @@ const commands = {
     ...mochibux.commands,
     ...pokemon.commands,
     ...bees.commands,
-    ...tarot.commands
+    ...tarot.commands,
+    ...wisdom.commands
 };
 
 // === ON READY ===
@@ -58,6 +60,8 @@ client.on('message', async (msg) => {
     // TODO: add dice roller
 
     // TODO: add robo/cartoon voice
+
+    wisdom.checkCommand(msg);
 
     tarot.checkCommand(msg);
 

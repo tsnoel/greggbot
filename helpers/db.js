@@ -29,6 +29,25 @@ exports.getWisdoms = () => {
     return db.get('wisdoms').value();
 }
 
+exports.setWisdom = (wisdom) => {
+    let wisdoms = db.get('wisdoms').value();
+    let index = wisdoms.indexOf(wisdom);
+
+    if (index === -1) {
+        wisdoms.push(wisdom);
+    } else {
+        wisdoms.splice(index, 1);
+    }
+
+    try {
+        db.set('wisdoms', wisdoms).write();
+    } catch (e) {
+        console.log(e);
+    }
+
+    return index;
+}
+
 exports.getPings = () => {
     return db.get('pings').value();
 }
