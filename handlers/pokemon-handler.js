@@ -35,10 +35,13 @@ exports.wild = async (msg) => {
     let pkmn = await getPokemon([`/api/v2/pokemon/${pknum}`]);
 
     msg.channel.send(`\`\`\`Wild ${pkmn[0].name} appeared!\`\`\``);
-    msg.channel.send(`\`\`\`Wild ${pkmn[0].name} used ` +
-        `${pkmn[0].moves[Math.floor((Math.random() * pkmn[0].moves.length))].move.name}.` +
-	`${['', '', '', ' It\'s not very effective.', ' It\'s super effective!', ' Critical hit!']
-	[Math.floor((Math.random() * 6))]}\`\`\``);
+
+    if (pkmn[0].moves && pkmn[0].moves.length) {
+        msg.channel.send(`\`\`\`Wild ${pkmn[0].name} used ` +
+            `${pkmn[0].moves[Math.floor((Math.random() * pkmn[0].moves.length))].move.name}.` +
+        `${['', '', '', ' It\'s not very effective.', ' It\'s super effective!', ' Critical hit!']
+        [Math.floor((Math.random() * 6))]}\`\`\``);
+    }
 }
 
 exports.team = async (msg) => {
