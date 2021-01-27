@@ -5,15 +5,19 @@ const pkmnHandler = require('../handlers/pokemon-handler.js')
 const adapter = new FileSync('db.json');
 const db = low(adapter);
  
-exports.initDB = () => {
-    db.defaults({ users: {} }).write();
+exports.initDB = (ping = 'ping') => {
+    db.defaults({
+        users: {},
+        wisdoms: ['If your ball is too big for your mouth, it\'s not yours.'],
+        pings: [ping]
+    }).write();
 }
 
 exports.name = (id, name) => {
     let users = db.get('users').value();
 
     if (!users[id]) {
-	users[id] = {};
+	    users[id] = {};
     }
 
     users[id].name = name;
@@ -21,11 +25,19 @@ exports.name = (id, name) => {
     db.set('users', users).write();
 }
 
+exports.getWisdoms = () => {
+    return db.get('wisdoms').value();
+}
+
+exports.getPings = () => {
+    return db.get('pings').value();
+}
+
 exports.getPoints = (id) => {
     let users = db.get('users').value();
 
     if (!users[id]) {
-	return `That user isn't registered with the MochiBux program at this time.`;
+	    return `That user isn't registered with the MochiBux program at this time.`;
     }
 
     return `${users[id].name} has ${users[id].points || 0} MochiBux`;
@@ -45,6 +57,9 @@ exports.points = (id, amount) => {
     return users[id].points;
 }
 
+// ======================
+// ======= UNUSED =======
+// ======================
 exports.traits = (id, trait) => {
     let users = db.get('users');
     users[id].traits = users[id].traits ? users[id].traits : [];
@@ -61,6 +76,9 @@ exports.traits = (id, trait) => {
     }
 }
 
+// ======================
+// ======= UNUSED =======
+// ======================
 exports.pokemon = (id, name) => { 
     let users = db.get('users');
     let valid = pkmnHandler.getPokemon(name);

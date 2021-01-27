@@ -20,7 +20,7 @@ const commands = {
 // === ON READY ===
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    db.initDB();
+    db.initDB(config.ping);
     config.hiddenCommands.forEach((e) => delete commands[e]); 
     client.user.setActivity(config.activity || 'Bot Games',
         { type: [

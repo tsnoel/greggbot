@@ -4,8 +4,11 @@ const Discord = require('discord.js');
 const t = require('tarot-deck');
 
 getReading = () => {
-    const res = [t.drawCard(), t.drawCard(), t.drawCard()];
-    return res;
+    return [
+        t.drawCard({reversedChance: 0.4}), // Past
+        t.drawCard({reversedChance: 0.3}), // Present
+        t.drawCard({reversedChance: 0.2})  // Future
+    ];
 }
 
 async function stitchImages(msg, reading) {
@@ -28,13 +31,13 @@ async function stitchImages(msg, reading) {
     ctx.fillStyle = 'white';
     ctx.lineWidth = 2;
 
-    const header = '~ FROM THE DESK OF THE MYSTIC GREGGBOT ~'
+    const header = '~ FROM THE MYSTIC PAWS OF THE AMAZING GREGGBOT ~'
     ctx.font = '16px Arial';
     ctx.strokeText(header, width / 2, offset);
     ctx.fillText(header, width / 2, offset);
     offset += 48;
 
-    const title = `${msg.author.username}'s Reading`;
+    const title = `${msg.author.username}'s Tarot Reading`;
     ctx.font = 'bold 40px Arial';
     ctx.strokeText(title, width / 2, offset);
     ctx.fillText(title, width / 2, offset);
@@ -123,11 +126,11 @@ async function stitchImages(msg, reading) {
     	    lines.push(result.substr(0, j || result.length));
     	    text = text.substr(lines[lines.length - 1].length, text.length);
         }
-    
-        ctx.font = 'italic 25px Arial';
+
+        ctx.font = lines.length > 3 ? 'italic 15px Arial' : 'italic 25px Arial';
         for (let a = 0; a < lines.length; a++) {
-            ctx.strokeText(lines[a], x + 160, offset + 730 + 30 * a);
-    	    ctx.fillText(lines[a], x + 160, offset + 730 + 30 * a);
+            ctx.strokeText(lines[a], x + 160, offset + 730 + (lines.length > 3 ? 20 : 30) * a);
+            ctx.fillText(lines[a], x + 160, offset + 730 + (lines.length > 3 ? 20 : 30) * a);
         }
     }
 
