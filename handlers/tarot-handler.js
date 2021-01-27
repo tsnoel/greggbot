@@ -4,10 +4,11 @@ const Discord = require('discord.js');
 const t = require('tarot-deck');
 
 getReading = () => {
+    // TODO: De-dupe
     return [
         t.drawCard({reversedChance: 0.4}), // Past
-        t.drawCard({reversedChance: 0.3}), // Present
-        t.drawCard({reversedChance: 0.2})  // Future
+        t.drawCard({reversedChance: 0.4}), // Present
+        t.drawCard({reversedChance: 0.35})  // Future
     ];
 }
 

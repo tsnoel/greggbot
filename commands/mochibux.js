@@ -42,7 +42,7 @@ exports.checkCommand = async (msg, client) => {
         const args = msg.content.trim().split(' ');
 
         if (!args[1]) {
-            msg.channel.send(`${config.greeting} Tag a user after typing !mochibux to see their MochiBux balance`);
+            msg.channel.send(db.getPoints(msg.author.id));
             return;
         }
 
@@ -52,5 +52,7 @@ exports.checkCommand = async (msg, client) => {
 }
 
 exports.commands = {
-    mochibux: ''
+    mochibux: '```' +
+        'Write something about MochiBux here.' +
+        '\n```'
 };
