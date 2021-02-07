@@ -4,6 +4,7 @@
     "discord.js": "^12.5.1",
     "lowdb": "^1.0.0",
     "pokedex-promise-v2": "^3.3.0",
-    "tarot-deck": "^2.0.1"
+    "tarot-deck": "^2.0.1",
+    "tiktok-scraper": "^1.4.12"
   }
 }

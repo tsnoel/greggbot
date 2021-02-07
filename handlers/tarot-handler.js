@@ -4,12 +4,17 @@ const Discord = require('discord.js');
 const t = require('tarot-deck');
 
 getReading = () => {
-    // TODO: De-dupe
-    return [
-        t.drawCard({reversedChance: 0.4}), // Past
-        t.drawCard({reversedChance: 0.4}), // Present
-        t.drawCard({reversedChance: 0.35})  // Future
-    ];
+    const cards = [];
+
+    while(cards.length < 3) {
+        const card = t.drawCard({reversedChance: 0.4});
+
+        if (!cards.find(e => e.name === card.name)) {
+            cards.push(card);
+        }
+    }
+
+    return cards;
 }
 
 async function stitchImages(msg, reading) {

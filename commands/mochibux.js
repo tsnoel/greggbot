@@ -16,7 +16,12 @@ exports.checkCommand = async (msg, client) => {
           , points;
 
         if (msg.author.id === id) {
-            msg.channel.send('😒');
+            if (msg.content.substring(msg.content.length-1) === '+') {
+                msg.channel.send('😒');
+            } else {
+                msg.channel.send('🤨');
+            }
+
             return;
         }
 
@@ -37,7 +42,8 @@ exports.checkCommand = async (msg, client) => {
             return;
         }
 
-        msg.channel.send(`${user.username} now has ${points} MochiBux`);
+        msg.channel.send(`${user.username} now has ${points} MochiBux` +
+            `${user.bot ? '. I hope I can spend it on cheese.' : ''}`);
     } else if (msg.content.startsWith(`${config.prefix}mochibux`)) {
         const args = msg.content.trim().split(' ');
 

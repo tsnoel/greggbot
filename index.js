@@ -10,13 +10,15 @@ const wisdom = require('./commands/wisdom.js');
 const pokemon = require('./commands/pokemon.js');
 const mochibux = require('./commands/mochibux.js');
 const bees = require('./commands/bees.js');
+const tiktok = require('./commands/tiktok.js');
 
 const commands = {
     ...mochibux.commands,
     ...pokemon.commands,
     ...bees.commands,
     ...tarot.commands,
-    ...wisdom.commands
+    ...wisdom.commands,
+    ...tiktok.commands
 };
 
 // === ON READY ===
@@ -37,6 +39,8 @@ client.on('ready', () => {
 
 // === ON MESSAGE ===
 client.on('message', async (msg) => {
+    tiktok.checkCommand(msg);
+
     if (!msg.content.startsWith(config.prefix) &&
         !msg.content.startsWith('<@')) {
         return;
