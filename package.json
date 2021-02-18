@@ -2,9 +2,12 @@
   "dependencies": {
     "canvas": "^2.6.1",
     "discord.js": "^12.5.1",
+    "lodash": "^4.17.20",
     "lowdb": "^1.0.0",
+    "node-schedule": "^2.0.0",
     "pokedex-promise-v2": "^3.3.0",
     "tarot-deck": "^2.0.1",
-    "tiktok-scraper": "^1.4.12"
+    "tiktok-scraper": "^1.4.12",
+    "weather-js": "^2.0.0"
   }
 }

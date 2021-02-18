@@ -17,13 +17,16 @@ exports.checkCommand = (msg) => {
 	                .setColor('#ee1d52')
 	                .setTitle(videoMeta.collector[0].text)
 	                .setURL(url)
-	                .setAuthor(`${videoMeta.collector[0].authorMeta.nickName} | @`
+	                .setAuthor(`${videoMeta.collector[0].authorMeta.nickName}   @`
                         + `${videoMeta.collector[0].authorMeta.name}`,
                         videoMeta.collector[0].authorMeta.avatar)
 	                .setDescription(`🎶 ${videoMeta.collector[0].musicMeta.musicName} - `
                         + `${videoMeta.collector[0].musicMeta.musicAuthor}\n`
-                        + `⏱ ${videoMeta.collector[0].videoMeta.duration} seconds`)
-	                .setThumbnail(videoMeta.collector[0].imageUrl);
+                        + `⏱ ${videoMeta.collector[0].videoMeta.duration} seconds | `
+                        + `📱${videoMeta.collector[0].videoMeta.width}x`
+                        + `${videoMeta.collector[0].videoMeta.height}`)
+	                .setThumbnail(videoMeta.collector[0].imageUrl)
+                    .setFooter(new Date(videoMeta.collector[0].createTime * 1000).toLocaleString());
 
                     msg.channel.send(exampleEmbed);
             } catch (error) {

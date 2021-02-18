@@ -4,8 +4,10 @@ const client = new Discord.Client();
 const config = require('./config.json');
 
 const db = require('./helpers/db.js');
+const cron = require('./helpers/cron.js');
 
 const tarot = require('./commands/tarot.js');
+const dnd = require('./commands/dnd.js');
 const wisdom = require('./commands/wisdom.js');
 const pokemon = require('./commands/pokemon.js');
 const mochibux = require('./commands/mochibux.js');
@@ -18,13 +20,15 @@ const commands = {
     ...bees.commands,
     ...tarot.commands,
     ...wisdom.commands,
-    ...tiktok.commands
+    ...tiktok.commands,
+    ...dnd.commands
 };
 
 // === ON READY ===
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
     db.initDB(config.ping);
+    cron.start(client);
     config.hiddenCommands.forEach((e) => delete commands[e]); 
     client.user.setActivity(config.activity || 'Bot Games',
         { type: [
@@ -68,6 +72,8 @@ client.on('message', async (msg) => {
     wisdom.checkCommand(msg);
 
     tarot.checkCommand(msg);
+
+    dnd.checkCommand(msg);
 
     pokemon.checkCommand(msg);
 

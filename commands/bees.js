@@ -13,7 +13,11 @@ exports.checkCommand = (msg) => {
     } else if (msg.content.substr(0,8) === '!jackbox') {
         jackbox.jackbox(msg);
     } else if (msg.content.startsWith(`${config.prefix}meme`)) {
-        memes.generate(msg);
+        try {
+            memes.generate(msg);
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
 
