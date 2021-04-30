@@ -105,7 +105,7 @@ exports.characterGen = (msg) => {
 
     Object.keys(abilities).forEach((a) => {
         abilities[a].mod = _.sample([-2, -1, -1, 0, 0, 0, 0, 1, 1, 2]);
-        abilities[a].val = 10 + (2 * abilities[a].mod) + 1;
+        abilities[a].val = 10 + (2 * abilities[a].mod) + _.sample([0, 1]);
         abilities[a].good = goodSaves.includes(a);
         abilities[a].save = abilities[a].mod + (abilities[a].good ? proficiency : 0);
     });
@@ -183,15 +183,15 @@ exports.characterGen = (msg) => {
         exampleEmbed.addField(`${abilities[a].emoji} ` +
             `**${abilities[a].name}** (${a})`,
             `**⏤ Score:** ${abilities[a].val}\n` +
-            `**⏤ Modifier:** ${abilities[a].mod > 0 ? '+' : ''}${abilities[a].mod}\n` +
+            `**⏤ Modifier:** ${abilities[a].mod >= 0 ? '+' : ''}${abilities[a].mod}\n` +
             `${abilities[a].good ? '☑️ ' : '◻️ '} **Save:** ` +
-            `${abilities[a].save > 0 ? '+' : ''}${abilities[a].save}`,
+            `${abilities[a].save >= 0 ? '+' : ''}${abilities[a].save}`,
             true);
     });
 
     exampleEmbed.addField('Armor Class', 10 + abilities.DEX.mod, true);
     exampleEmbed.addField('Initiative',
-        `${abilities.DEX.mod > 0 ? '+' : ''}${abilities.DEX.mod}`, true);
+        `${abilities.DEX.mod >= 0 ? '+' : ''}${abilities.DEX.mod}`, true);
     exampleEmbed.addField('Speed', _.sample([25, 30, 30, 30, 35]), true);
     exampleEmbed.addField('Hit Points', hd + abilities.CON.mod, true);
     exampleEmbed.addField('Hit Dice', `1d${hd}`, true);
@@ -205,7 +205,7 @@ exports.characterGen = (msg) => {
         temp +=
             `${skills[s].good ? '☑ ' : '◻ '}` +
             `${abilities[skills[s].ability].emoji} **${s}:**` +
-            ` ${skills[s].val > 0 ? '+' : ''}${skills[s].val}\n`;
+            ` ${skills[s].val >= 0 ? '+' : ''}${skills[s].val}\n`;
 
         if (s === 'History') {
             exampleEmbed.addField('✨ Skills ✨', temp, true);
@@ -216,7 +216,10 @@ exports.characterGen = (msg) => {
         }
     });
 
-    exampleEmbed.addField('🎒 **Equipment** 🎒', _.sampleSize(equipment.data, 3).join('\n'), false);
+    exampleEmbed.addField('🎒 **Equipment** 🎒',
+        [`${Math.floor((Math.random() * 9) + 1)} ` +
+        `${_.sample(['cp', 'cp', 'cp', 'cp', 'cp', 'cp', 'sp', 'sp', 'sp', 'gp'])}`,
+        ..._.sampleSize(equipment.data, 3)].join('\n'), false);
 
     try {
         msg.channel.send(exampleEmbed);

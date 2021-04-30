@@ -25,6 +25,86 @@ exports.name = (id, name) => {
     db.set('users', users).write();
 }
 
+exports.avatar = (id, avatar) => {
+    let users = db.get('users').value();
+
+    if (!users[id]) {
+        users[id] = {};
+    }
+
+    users[id].avatar = avatar;
+
+    db.set('users', users).write();
+}
+
+/* exports.clearOrders = () => {
+    let users = db.get('users').value();
+
+    Object.keys(users).forEach((u) => {
+        if (users[u].diplomacy) {
+            users[u].order = '';
+        }
+    });
+
+    db.set('users', users).write();
+}
+
+exports.getOrders = () => {
+    let users = db.get('users').value();
+    let temp = {};
+
+    Object.keys(users).forEach((u) => {
+        if (users[u].diplomacy) {
+            temp[u] = {};
+            temp[u].name = users[u].name;
+            temp[u].order = users[u].order;
+            temp[u].diplosona = users[u].diplosona;
+        }
+    });
+
+    return temp;
+}
+
+exports.getOrder = (msg) => {
+    let users = db.get('users').value();
+    let temp = {};
+
+    if (users[msg.author.id]) { //&& users[msg.author.id].diplomacy) {
+        return users[msg.author.id].order || 'No orders recieved.';
+    }
+
+    return 'You\'re not a registered diplomacy player.';
+}
+
+exports.setOrder = (id, order) => {
+    let users = db.get('users').value();
+
+    if (!users[id]) {
+        users[id] = {};
+    }
+
+    users[id].order = order;
+
+    db.set('users', users).write();
+}
+
+exports.getDiplomacyTime = () => {
+    return db.get('diplomacy').value();
+}
+
+exports.incrementDiplomacyTime = () => {
+    let diplomacy = db.get('diplomacy').value();
+
+    if (diplomacy.season === 'Fall') {
+        diplomacy.year += 1;
+        diplomacy.season = 'Spring';
+    } else {
+        diplomacy.season = 'Fall';
+    }
+
+    db.set('diplomacy', diplomacy).write();
+} */
+
 exports.getWisdoms = () => {
     return db.get('wisdoms').value();
 }

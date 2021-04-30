@@ -12,6 +12,7 @@ const wisdom = require('./commands/wisdom.js');
 const pokemon = require('./commands/pokemon.js');
 const mochibux = require('./commands/mochibux.js');
 const bees = require('./commands/bees.js');
+// const nori = require('./commands/.js');
 const tiktok = require('./commands/tiktok.js');
 
 const commands = {
@@ -21,7 +22,8 @@ const commands = {
     ...tarot.commands,
     ...wisdom.commands,
     ...tiktok.commands,
-    ...dnd.commands
+    ...dnd.commands,
+//    ...nori.commands
 };
 
 // === ON READY ===
@@ -43,10 +45,17 @@ client.on('ready', () => {
 
 // === ON MESSAGE ===
 client.on('message', async (msg) => {
-    tiktok.checkCommand(msg);
+    if (msg.author.bot) {
+        return;
+    }
 
-    if (!msg.content.startsWith(config.prefix) &&
-        !msg.content.startsWith('<@')) {
+    db.name(msg.author.id, msg.author.username);
+    db.avatar(msg.author.id, msg.author.avatar);
+
+    tiktok.checkCommand(msg);
+    mochibux.checkCommand(msg, client);
+
+    if (!msg.content.startsWith(config.prefix)) {
         return;
     }
 
@@ -70,16 +79,11 @@ client.on('message', async (msg) => {
     // TODO: add robo/cartoon voice
 
     wisdom.checkCommand(msg);
-
     tarot.checkCommand(msg);
-
     dnd.checkCommand(msg);
-
     pokemon.checkCommand(msg);
-
-    mochibux.checkCommand(msg, client);
-
     bees.checkCommand(msg);
+    // nori.checkCommand(msg);
 });
 
 // === LOGIN ===
