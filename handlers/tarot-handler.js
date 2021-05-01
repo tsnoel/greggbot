@@ -3,6 +3,8 @@ const Discord = require('discord.js');
 
 const t = require('tarot-deck');
 
+const config = require('../config.json');
+
 getReading = () => {
     const cards = [];
 
@@ -37,7 +39,7 @@ async function stitchImages(msg, reading) {
     ctx.fillStyle = 'white';
     ctx.lineWidth = 2;
 
-    const header = '~ FROM THE MYSTIC PAWS OF THE AMAZING GREGGBOT ~'
+    const header = `~ FROM THE MYSTIC PAWS OF THE AMAZING ${config.name.toUpperCase()} ~`;
     ctx.font = '16px Arial';
     ctx.strokeText(header, width / 2, offset);
     ctx.fillText(header, width / 2, offset);

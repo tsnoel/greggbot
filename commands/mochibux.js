@@ -1,4 +1,4 @@
-const db = require('../helpers/db.js');
+const service = require('../helpers/mochAPI.js');
 const config = require('../config.json');
 
 function stripID(id) {
@@ -11,8 +11,7 @@ exports.checkCommand = async (msg, client) => {
     if (ids && !msg.author.bot) {
         ids.forEach(async (i) => {
             const id = stripID(i);
-            let user
-              , points;
+            let points;
 
             if (msg.author.id === id) {
                 if (i.includes('++')) {
@@ -25,40 +24,45 @@ exports.checkCommand = async (msg, client) => {
             }
 
             try {
-                user = await client.users.fetch(id);
+                points = await service.mochibux.fetchMochibux(id);
             } catch(e) {
                 console.log(e);
                 msg.channel.send('Who?');
                 return;
             }
 
-            db.name(id, user.username);
-
             try {
-                points = db.points(id, i.includes('++') ? 1 : -1);
+                points = await service.mochibux.updateMochibux(id, {
+		    points: i.includes('++') ? points.points + 1 : points.points - 1 });
             } catch(e) {
                 console.log(e);
                 return;
             }
 
-            msg.channel.send(`${user.username} now has ${points} MochiBux` +
-                `${user.bot ? '. I hope I can spend it on cheese.' : ''}`);
+            msg.channel.send(`${i.replace(/[+-\s\n\t\r]/g, '')} ` +
+	        `now has ${points.points} MochiBux!`);
         });
     } else if (msg.content.startsWith(`${config.prefix}mochibux`)) {
         const args = msg.content.trim().split(' ');
+	const id = !args[1] ? msg.author.id : stripID(args[1]);
 
-        if (!args[1]) {
-            msg.channel.send(db.getPoints(msg.author.id));
-            return;
-        }
+	let res;
+	    
+	try {
+	    res = await service.mochibux.fetchMochibux(id);
+	} catch {
+	    msg.channel.send(`${config.greeting} Invalid user!`);
+	    return;
+	}
 
-	    const id = stripID(args[1]);
-        msg.channel.send(db.getPoints(id));
+        msg.channel.send(
+	    `${!args[1] ? 'You have' : args[1].replace(/[+-\s\n\t\r]/g, '') + ' has'}` +
+	    ` ${res.points} MochiBux!`);
     }
 }
 
 exports.commands = {
     mochibux: '```' +
-        'Write something about MochiBux here.' +
+        'Check a user\'s MochiBux balance.' +
         '\n```'
 };

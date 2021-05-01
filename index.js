@@ -3,7 +3,7 @@ const client = new Discord.Client();
 
 const config = require('./config.json');
 
-const db = require('./helpers/db.js');
+const service = require('./helpers/mochAPI.js');
 const cron = require('./helpers/cron.js');
 
 const tarot = require('./commands/tarot.js');
@@ -12,8 +12,8 @@ const wisdom = require('./commands/wisdom.js');
 const pokemon = require('./commands/pokemon.js');
 const mochibux = require('./commands/mochibux.js');
 const bees = require('./commands/bees.js');
-// const nori = require('./commands/.js');
 const tiktok = require('./commands/tiktok.js');
+const matrix = require('./commands/led-matrix.js');
 
 const commands = {
     ...mochibux.commands,
@@ -23,13 +23,12 @@ const commands = {
     ...wisdom.commands,
     ...tiktok.commands,
     ...dnd.commands,
-//    ...nori.commands
+    ...matrix.commands
 };
 
 // === ON READY ===
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    db.initDB(config.ping);
     cron.start(client);
     config.hiddenCommands.forEach((e) => delete commands[e]); 
     client.user.setActivity(config.activity || 'Bot Games',
@@ -49,8 +48,11 @@ client.on('message', async (msg) => {
         return;
     }
 
-    db.name(msg.author.id, msg.author.username);
-    db.avatar(msg.author.id, msg.author.avatar);
+    service.user.updateUser(msg.author.id, {
+        name: msg.author.username,
+	avatar: msg.author.avatar,
+	discriminator: msg.author.discriminator
+    });
 
     tiktok.checkCommand(msg);
     mochibux.checkCommand(msg, client);
@@ -74,16 +76,12 @@ client.on('message', async (msg) => {
 	    }
     }
 
-    // TODO: add dice roller
-
-    // TODO: add robo/cartoon voice
-
     wisdom.checkCommand(msg);
     tarot.checkCommand(msg);
     dnd.checkCommand(msg);
     pokemon.checkCommand(msg);
     bees.checkCommand(msg);
-    // nori.checkCommand(msg);
+    matrix.checkCommand(msg);
 });
 
 // === LOGIN ===

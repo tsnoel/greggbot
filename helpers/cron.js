@@ -1,7 +1,6 @@
 const schedule = require('node-schedule');
 const weather = require('weather-js');
 const Discord = require('discord.js');
-const db = require('../helpers/db.js');
 const config = require('../config.json');
 
 let client;
@@ -11,38 +10,6 @@ exports.start = (c) => {
     clock();
     friday();
 }
-
-/* const diplomacy = () => {
-    const rule = new schedule.RecurrenceRule();
-    rule.dayOfWeek = [1, 4];
-    rule.hour = 19;
-    rule.minute = 0;
-    rule.second = 0;
-
-    const job = schedule.scheduleJob(rule, () => {
-        try {
-            const orders = db.getOrders();
-            const time = db.getDiplomacyTime();
-
-            const exampleEmbed = new Discord.MessageEmbed()
-                .setColor(time.season === 'Fall' ? '#D37B6F' : '#7DBD94')
-                .setTitle(`Orders for ${time.season} ${time.year}`)
-                .setAuthor((`From the omnipotent paws of ${config.name}, god of war`).toUpperCase())
-                .setFooter(new Date().toLocaleString());
-
-            Object.values(orders).forEach((o) => {
-                exampleEmbed.addField(`${o.diplosona} (${o.name})`, o.order, false);
-            });
-
-            client.channels.cache.get('806677482367221821').send(exampleEmbed);
-
-            db.incrementDiplomacyTime();
-            db.clearOrders();
-        } catch (e) {
-            console.log(e);
-        }
-    });
-} */
 
 const friday = () => {
     const rule = new schedule.RecurrenceRule();
