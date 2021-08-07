@@ -5,6 +5,7 @@
     "got": "^11.8.2",
     "lodash": "^4.17.20",
     "lowdb": "^1.0.0",
+    "ngrok": "^4.0.1",
     "node-schedule": "^2.0.0",
     "pokedex-promise-v2": "^3.3.0",
     "ssh-exec": "^2.0.0",

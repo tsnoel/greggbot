@@ -1,4 +1,4 @@
-const exec = require('ssh-exec');
+const exe = require('ssh-exec');
 
 const service = require('../helpers/mochAPI.js');
 const config = require('../config.json');
@@ -19,7 +19,7 @@ exports.checkCommand = async (msg) => {
 
 	if (Object.keys(cmdMap).find((m) => m === cmd)) {
 	    try {
-	        exec(`bash stop.sh; ${cmdMap[cmd]}`, config.ledMatrixCreds);
+	        exe(`bash stop.sh; ${cmdMap[cmd]}`, config.ledMatrixCreds);
 	    } catch (e) { console.log(e); }
 
 	    msg.channel.send(`${config.greeting} Matrix set to ${cmd}!`);

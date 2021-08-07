@@ -2558,6 +2558,21 @@
         "class": "Cleric, Druid"
     },
     {
+        "name": "Healing Elixir",
+        "desc": "You create a healing elixir in a simple vial that appears in your hand. The elixir retains its potency for the duration or until it’s consumed, at which point the vial vanishes. As an action, a creature can drink the elixir or administer it to another creature. The drinker regains 2d4 + 2 hit points.",
+        "page": "Unearthed Arcana 36 - Starter Spells",
+        "range": "Self",
+        "components": "V, S, M (alchemist’s supplies)",
+        "ritual": "no",
+        "duration": "24 hours",
+        "concentration": "no",
+        "casting_time": "1 minute",
+        "level": "1st-level",
+        "level_int": 1,
+        "school": "Conjuration",
+        "class": "Warlock, Wizard"
+    },
+    {
         "name": "Healing Word",
         "desc": "A creature of your choice that you can see within range regains hit points equal to 1d4 + your spellcasting ability modifier. This spell has no effect on undead or constructs.",
         "higher_level": "When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d4 for each slot level above 1st.",
