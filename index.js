@@ -7,13 +7,14 @@ const service = require('./helpers/mochAPI.js');
 const cron = require('./helpers/cron.js');
 
 const tarot = require('./commands/tarot.js');
+const magicball = require('./commands/magicball.js');
 const dnd = require('./commands/dnd.js');
 const wisdom = require('./commands/wisdom.js');
 const pokemon = require('./commands/pokemon.js');
 const mochibux = require('./commands/mochibux.js');
 const bees = require('./commands/bees.js');
 const tiktok = require('./commands/tiktok.js');
-const matrix = require('./commands/led-matrix.js');
+// const matrix = require('./commands/led-matrix.js');
 
 const commands = {
     ...mochibux.commands,
@@ -23,7 +24,8 @@ const commands = {
     ...wisdom.commands,
     ...tiktok.commands,
     ...dnd.commands,
-    ...matrix.commands
+    ...magicball.commands
+//    ...matrix.commands
 };
 
 // === ON READY ===
@@ -50,8 +52,8 @@ client.on('message', async (msg) => {
 
     service.user.updateUser(msg.author.id, {
         name: msg.author.username,
-	avatar: msg.author.avatar,
-	discriminator: msg.author.discriminator
+	    avatar: msg.author.avatar,
+	    discriminator: msg.author.discriminator
     });
 
     tiktok.checkCommand(msg);
@@ -81,7 +83,8 @@ client.on('message', async (msg) => {
     dnd.checkCommand(msg);
     pokemon.checkCommand(msg);
     bees.checkCommand(msg);
-    matrix.checkCommand(msg);
+    magicball.checkCommand(msg);
+    // matrix.checkCommand(msg);
 });
 
 // === LOGIN ===
