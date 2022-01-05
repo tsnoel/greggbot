@@ -6,10 +6,11 @@ exports.checkCommand = (msg) => {
         return
     }
 
-    const regex = /https:\/\/vm\.tiktok\.com\/[a-zA-Z0-9]{9}\//g;
+    const regex = /https:\/\/vm\.tiktok\.com\/[a-zA-Z0-9]{9,10}\//g;
     const urls = msg.content.match(regex);
 
-    if (urls && !msg.author.bot) {
+    if (urls && urls.length > 0) {
+        msg.suppressEmbeds(true);
         urls.forEach(async (url) => {
             try {
                 const videoMeta = await TikTokScraper.getVideoMeta(url);
@@ -30,6 +31,7 @@ exports.checkCommand = (msg) => {
 
                     msg.channel.send(exampleEmbed);
             } catch (error) {
+                msg.channel.send(error);
                 console.log(error);
             }
         });
