@@ -3,24 +3,37 @@ const got = require('got');
 
 class UserService {
     async fetchUser(id) {
-	console.log(`${MOCHAPI_URL}/user/${id ? id : ''}`)
         const res = await got(`${MOCHAPI_URL}/user/${id ? id : ''}`);
 
-	console.log(res);
         return JSON.parse(res.body);
     }
 
     async updateUser(id, data) {
-	let res;
+        let res;
 
-	try {
-        res = await got.put(`${MOCHAPI_URL}/user/${id}`, {
-	    json: data,
-	    responseType: 'json'
-	});
-	} catch (e) {
-	    console.log(e);
-	}
+        try {
+            res = await got.put(`${MOCHAPI_URL}/user/${id}`, {
+                json: data,
+                responseType: 'json'
+            });
+        } catch (e) {
+            console.log(e);
+        }
+
+        return res.body;
+    }
+
+    async createUser(data) {
+        let res;
+
+        try {
+            res = await got.post(`${MOCHAPI_URL}/user`, {
+                json: data,
+                responseType: 'json'
+            });
+        } catch (e) {
+            console.log(e);
+        }
 
         return res.body;
     }
@@ -35,11 +48,20 @@ class MochibuxService {
 
     async updateMochibux(id, data) {
         const res = await got.put(`${MOCHAPI_URL}/mochibux/${id}`, {
-	    json: data,
-	    responseType: 'json'
-	});
+            json: data,
+            responseType: 'json'
+        });
 
         return res.body;   
+    }
+
+    async createMochibux(id) {
+        const res = await got.post(`${MOCHAPI_URL}/mochibux`, {
+            json: {id, points: 0},
+            responseType: 'json'
+        });
+
+        return res.body;
     }
 }
 

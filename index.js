@@ -50,6 +50,20 @@ client.on('message', async (msg) => {
         return;
     }
 
+    try {
+        await service.user.fetchUser(msg.author.id);
+    } catch {
+        await Promise.all([
+            service.user.createUser({
+                name: msg.author.username,
+                id: msg.author.id,
+                avatar: msg.author.avatar,
+                discriminator: msg.author.discriminator
+            }),
+            service.mochibux.createMochibux(msg.author.id)
+        ]);
+    }
+
     service.user.updateUser(msg.author.id, {
         name: msg.author.username,
 	    avatar: msg.author.avatar,
