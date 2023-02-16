@@ -1,4 +1,4 @@
-const MOCHAPI_URL = `http://192.168.1.206:3000`;
+const MOCHAPI_URL = `http://192.168.1.239:3000`;
 const got = require('got');
 
 class UserService {

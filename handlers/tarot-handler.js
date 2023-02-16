@@ -72,7 +72,7 @@ async function stitchImages(msg, reading) {
         try {
             ctx.drawImage(
                 await Canvas.loadImage(
-                    `/home/pi/tarot/${reading[i].suit}` +
+                    `/home/tim/tarot/${reading[i].suit}` +
                     (Object.keys(ranks).includes(reading[i].rank) ?
                         ranks[reading[i].rank] :
                         reading[i].rank < 10 ?
